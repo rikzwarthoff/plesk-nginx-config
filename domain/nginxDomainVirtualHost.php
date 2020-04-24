@@ -176,24 +176,12 @@ location ~ /\.(?!well-known\/) {
     add_header "Access-Control-Allow-Origin" "*";
     access_log off;
     log_not_found off;
-    expires 30d;
+    expires max;
     }
 
     # webp rewrite rules for jpg and png images
     # try to load alternative image.png.webp first, then try image.png
     location /wp-content/uploads {
-    location ~ \.(png|jpe?g)$ {
-        add_header Vary "Accept-Encoding";
-        add_header "Access-Control-Allow-Origin" "*";
-        add_header Cache-Control "public, no-transform";
-        access_log off;
-        log_not_found off;
-        expires max;
-        try_files $uri$webp_suffix $uri =404;
-        }
-    }
-    # webp rewrite rules for EWWW testing image
-    location /wp-content/plugins/ewww-image-optimizer/images {
     location ~ \.(png|jpe?g)$ {
         add_header Vary "Accept-Encoding";
         add_header "Access-Control-Allow-Origin" "*";
