@@ -25,7 +25,7 @@
 1) Clone the repository
 
 ```bash
-git clone https://github.com/VirtuBox/plesk-nginx-fascgi-cache-template.git /usr/local/psa/admin/conf/templates/custom
+git clone https://github.com/rikzwarthoff/plesk-nginx-config.git /usr/local/psa/admin/conf/templates/custom
 ```
 
 2) Copy Nginx configuration in Nginx conf.d directory
