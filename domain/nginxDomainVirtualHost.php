@@ -232,16 +232,44 @@ location ~ /\.(?!well-known\/) {
     	vhost_traffic_status_display_format html;
       vhost_traffic_status_bypass_limit on;
 	    vhost_traffic_status_bypass_stats on;
-    	# HTTP authentication || using htpasswd
-    	satisfy any;
-    	auth_basic "Restricted Area";
-    	auth_basic_user_file htpasswd;
-    	# Allowed IP Address List
-    	allow 127.0.0.1;
-    	deny all;
-      access_log off;
-      log_not_found off;
+      include /etc/nginx/common/acl.conf;
     }
+
+    # Pagespeed
+    pagespeed LoadFromFile "https?://$host/" "$document_root/"
+    location ~ "\.pagespeed\.([a-z]\.)?[a-z]{2}\.[^.]{10}\.[^.]+" {
+	       add_header " " " ";
+    }
+    location ~ "^/pagespeed_static/" { }
+    location ~ "^/ngx_pagespeed_beacon$" { }
+    location /ngx_pagespeed_statistics {
+        vhost_traffic_status_bypass_limit on;
+	      vhost_traffic_status_bypass_stats on;
+        include /etc/nginx/common/acl.conf;
+    }
+    location /ngx_pagespeed_global_statistics {
+        vhost_traffic_status_bypass_limit on;
+        vhost_traffic_status_bypass_stats on;
+        include /etc/nginx/common/acl.conf;
+    }
+    location /ngx_pagespeed_message {
+        vhost_traffic_status_bypass_limit on;
+        vhost_traffic_status_bypass_stats on;
+        include /etc/nginx/common/acl.conf;
+    }
+    location /pagespeed_console {
+        vhost_traffic_status_bypass_limit on;
+        vhost_traffic_status_bypass_stats on;
+        include /etc/nginx/common/acl.conf;
+    }
+    location ~ ^/pagespeed_admin {
+       vhost_traffic_status_bypass_limit on;
+       vhost_traffic_status_bypass_stats on;
+       include /etc/nginx/common/acl.conf;
+    }
+
+
+
 
     <?php if ($VAR->domain->physicalHosting->proxySettings['nginxCacheEnabled']): ?>
     # fastcgi_cache purge support
