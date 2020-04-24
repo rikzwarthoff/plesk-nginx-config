@@ -51,11 +51,11 @@ server {
 
     location /netdata {
         proxy_pass        http://127.0.0.1:19999;
+        proxy_redirect http://$host:19999 $scheme://$host/netdata;
         proxy_set_header  X-Real-IP  $remote_addr;
         proxy_set_header        Host            $host;
         proxy_set_header        X-Forwarded-For $proxy_add_x_forwa$
         proxy_set_header        X-Forwarded-Proto $scheme;
-        proxy_redirect off;
         proxy_buffering off;
         access_log off;
 
