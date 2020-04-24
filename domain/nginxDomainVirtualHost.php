@@ -226,6 +226,23 @@ location ~ /\.(?!well-known\/) {
     deny all;
     }
 
+    # VTS
+    location /vts_status {
+    	vhost_traffic_status_display;
+    	vhost_traffic_status_display_format html;
+      vhost_traffic_status_bypass_limit on;
+	    vhost_traffic_status_bypass_stats on;
+    	# HTTP authentication || using htpasswd
+    	satisfy any;
+    	auth_basic "Restricted Area";
+    	auth_basic_user_file htpasswd;
+    	# Allowed IP Address List
+    	allow 127.0.0.1;
+    	deny all;
+      access_log off;
+      log_not_found off;
+    }
+
     <?php if ($VAR->domain->physicalHosting->proxySettings['nginxCacheEnabled']): ?>
     # fastcgi_cache purge support
     location ~ /purge(/.*) {
