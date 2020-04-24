@@ -236,7 +236,7 @@ location ~ /\.(?!well-known\/) {
     }
 
     # Pagespeed
-    pagespeed LoadFromFile "https?://$host/" "$document_root/"
+    pagespeed LoadFromFile "https?://$host/" "$document_root/";
     location ~ "\.pagespeed\.([a-z]\.)?[a-z]{2}\.[^.]{10}\.[^.]+" {
 	       add_header " " " ";
     }
